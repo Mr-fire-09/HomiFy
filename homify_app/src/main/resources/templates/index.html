@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Homify App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            background: #fff;
+            padding: 25px;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            background: #ecf0f1;
+            padding: 10px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏠 Homify - Property Listings</h1>
+
+    <h3>Add a Property</h3>
+    <form action="/add" method="post">
+        <input type="text" name="title" placeholder="Title" required><br>
+        <input type="text" name="location" placeholder="Location" required><br>
+        <input type="number" step="0.01" name="price" placeholder="Price" required><br>
+        <input type="text" name="description" placeholder="Description"><br>
+        <button type="submit">Add Property</button>
+    </form>
+
+    <h3>Available Properties</h3>
+    <ul>
+        <li th:each="property : ${properties}">
+            <strong th:text="${property.title}"></strong> |
+            <span th:text="${property.location}"></span> |
+            ₹<span th:text="${property.price}"></span> |
+            <em th:text="${property.description}"></em> |
+            <a th:href="@{'/delete/' + ${property.id}}">Delete</a>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
